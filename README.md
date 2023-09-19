@@ -71,19 +71,19 @@ Ver [Desenvolvimento](docs/desenvolvimento.md).
 ## API
 
 A API que será utilizada será:
-```https://dhodonto.ctdprojetos.com.br/```
+```https://dhodonto.ctd.academy/```
 
 Rota com a documentação (Swagger) da API para
-```https://dhodonto.ctdprojetos.com.br/swagger-ui/index.html```
+```https://dhodonto.ctd.academy/swagger-ui/index.html#/health-check-controller/buscar_1```
 
 Rota para buscar os dentistas:
-```https://dhodonto.ctdprojetos.com.br/dentista```
+```https://dhodonto.ctd.academy/dentista```
 
 Rota para buscar os pacientes:
-```https://dhodonto.ctdprojetos.com.br/paciente```
+```https://dhodonto.ctd.academy/paciente```
 
 Rota para o login
-```https://dhodonto.ctdprojetos.com.br/auth```
+```https://dhodonto.ctd.academy/auth```
 
 Para logar na aplicação, utilize:
 * Login: dentistaAdmin
