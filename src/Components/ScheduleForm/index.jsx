@@ -1,4 +1,4 @@
-import ScheduleForm from './ScheduleForm';
+import ScheduleForm from '../Schedule';
 
 const ScheduleFormModal = () => {
   return (

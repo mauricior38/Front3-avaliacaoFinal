@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Card from "../Components/Card";
+import Card from "../../Components/Card/index";
 
-const Home = () => {
+export const Home = () => {
 
   useEffect(() => {
     //Nesse useEffect, deverá ser obtido todos os dentistas da API
@@ -19,4 +19,3 @@ const Home = () => {
   );
 };
 
-export default Home;
