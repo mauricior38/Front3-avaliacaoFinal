@@ -1,17 +1,19 @@
 import styles from "./Form.module.css";
 import { useContext, useState } from "react";
 import { DentistContext } from "../../context/userContext";
+import { useTheme } from "../../hooks/changeTheme.hook";
 
 const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const {theme} = useTheme()
 
   const { signIn } = useContext(DentistContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log();
+    console.log("e",e);
     //Nesse handlesubmit você deverá usar o preventDefault,
     //enviar os dados do formulário e enviá-los no corpo da requisição
     //para a rota da api que faz o login /auth
@@ -27,8 +29,8 @@ const LoginForm = () => {
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div className={`text-center card container ${styles.card}`}>
-        <div className={`card-body ${styles.CardBody}`}>
+      <div className={`text-center card container `}>
+        <div className={`card-body ${styles.CardBody} ${theme === 'dark' ? styles.cardDark : ''}`}>
           <form onSubmit={handleSubmit}>
             <input
               className={`form-control ${styles.inputSpacing}`}
@@ -51,6 +53,9 @@ const LoginForm = () => {
             <button className="btn btn-primary" type="submit">
               Send
             </button>
+            <span>
+                {/* {errorMessage && <div className={styles.error}>{errorMessage}</div>} */}
+            </span>
           </form>
         </div>
       </div>
