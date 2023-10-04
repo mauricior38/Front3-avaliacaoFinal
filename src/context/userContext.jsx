@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import api from "../services/api";
@@ -11,6 +11,7 @@ export function DentistContextProvider({ children }) {
   const [loged, setLoged] = useState(null);
   const [isLogged, setIsLoged] = useState(false);
 
+    
   const navigate = useNavigate();
 
   function procuraDentista(matricula) {
@@ -22,31 +23,37 @@ export function DentistContextProvider({ children }) {
   }
 
   async function signIn(username, password) {
-    await api
-      .post("/auth", {
-        username: username,
-        password: password,
-      })
-      .then((e) => {
-        console.log("Login realizado com sucesso");
-        const token = e.data.token;
-        setLoged(token);
-        localStorage.setItem("@dentistas-password", JSON.stringify(token));
-        navigate("/home");
-        return;
-      })
-      .catch((error) => {
-        console.log(error);
-        return;
-      });
+    try {
+
+      const e = await api
+        .post("/auth", {
+          username: username,
+          password: password,
+        })
+
+      console.log("Login realizado com sucesso");
+      const token = e.data.token;
+      setLoged(token);
+      localStorage.setItem("@dentistas-password", JSON.stringify(token));
+      navigate("/home");
+      return;
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 400) {
+          alert('Login ou senha incorretos')
+        } else {
+          alert('Erro: Tente novamente mais tarde')
+        }
+      }
+    }
   }
 
-  function checkLogged(){
+  function checkLogged() {
     const checkLoggedRef = localStorage.getItem('@dentistas-password');
-    
-    if(checkLoggedRef){
+
+    if (checkLoggedRef) {
       setIsLoged(true)
-    }else{
+    } else {
       console.log('não ta pegando a chave')
     }
   }
@@ -60,7 +67,7 @@ export function DentistContextProvider({ children }) {
         dentista,
         signIn,
         isLogged,
-        checkLogged
+        checkLogged,
       }}
     >
       {children}

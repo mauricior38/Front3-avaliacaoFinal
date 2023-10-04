@@ -1,8 +1,11 @@
+import { useTheme } from "../../hooks/changeTheme.hook";
 import styles from "./Card.module.css";
 import { Link } from 'react-router-dom';
 
-const Card = ({nome, sobrenome, matricula}) => {
+const Card = ({ nome, sobrenome, matricula }) => {
+  const { theme } = useTheme();
   
+  console.log("theme", theme);
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
@@ -13,7 +16,7 @@ const Card = ({nome, sobrenome, matricula}) => {
           src="/images/doctor.jpg"
           alt="doctor placeholder"
         />
-        <div className={`card-body ${styles.CardBody}`}>
+        <div className={`card-body ${styles.CardBody} ${theme === 'dark' ? styles.cardDark : ''}`}>
           {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
           que vem da API */}
           <Link to={`/dentista/${matricula}`}>

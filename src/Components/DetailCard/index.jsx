@@ -3,14 +3,16 @@ import ScheduleFormModal from "../ScheduleForm";
 import { useParams } from 'react-router-dom';
 
 import styles from "./DetailCard.module.css";
+import { useTheme } from '../../hooks/changeTheme.hook'
 
 import { DentistContext } from "../../context/userContext";
 
 const DetailCard = () => {
 
   const { matricula } = useParams();
+  const { theme } = useTheme()
 
-  const { procuraDentista, dentista: {nome, sobrenome} } = useContext(DentistContext);
+  const { procuraDentista, dentista: { nome, sobrenome } } = useContext(DentistContext);
 
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api passando o
@@ -51,7 +53,7 @@ const DetailCard = () => {
               <button
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
-                className={`btn btn-light ${styles.button}`}
+                className={`btn btn-${theme} ${styles.button}`}
               >
                 Marcar consulta
               </button>

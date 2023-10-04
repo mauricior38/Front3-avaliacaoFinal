@@ -1,6 +1,20 @@
+// import { ThemeContext } from '../../context/changeTheTheme'
+// import { useContext } from "react";
+import { useTheme } from '../../hooks/changeTheme.hook'
 import styles from "./Navbar.module.css";
 
-const Navbar = () => {
+export const Navbar = () => {
+  // const { trocaTema } = useContext(ThemeContext);
+  const { theme, changeTheme } = useTheme()
+
+  // console.log("trocaTema", trocaTema);
+  // console.log(trocaTema);
+  function handleClick() {
+    if (theme === 'light')
+      changeTheme('dark')
+    else
+      changeTheme('light')
+  }
 
   return (
     <header className="sticky-top">
@@ -55,8 +69,8 @@ const Navbar = () => {
                  Na linha seguinte deverá ser feito um teste se a aplicação
                  está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
-                  className={`btn btn-light${styles.btnStyle
-                    }`}
+                  className={`btn btn-${theme} ${styles.btnStyle}`}
+                  onClick={handleClick}
                 >
                   ☀ 🌙{" "}
                 </button>

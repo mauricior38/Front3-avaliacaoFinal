@@ -1,6 +1,10 @@
+import { useTheme } from '../../hooks/changeTheme.hook';
 import ScheduleForm from '../Schedule';
 
+
 const ScheduleFormModal = () => {
+  const { theme } = useTheme()
+
   return (
     <div className={`modal fade`} id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog">
