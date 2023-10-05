@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import api from '../../services/api';
 import styles from "./ScheduleForm.module.css";
 import { useTheme } from '../../hooks/changeTheme.hook'
 
@@ -6,9 +7,30 @@ import { useTheme } from '../../hooks/changeTheme.hook'
 const ScheduleForm = () => {
   const { theme } = useTheme()
 
+  const [ listaDentistas, setListaDentistas] = useState([]);
+  const [listaP, setListaP] = useState(null);
+
+
+  async function loadData() {
+    try{
+    const responseDentista = await api.get("/dentista");
+    const dataDentista = await responseDentista.data;
+
+    const responsePaciente = await api.get("/paciente");
+    const dataPaciente = await responsePaciente.data.body;
+    
+    setListaDentistas(dataDentista);
+    setListaP(dataPaciente);
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+
   useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
-    //e pacientes e carregar os dados em 2 estados diferentes
+    loadData();
+    console.log(listaP)
   }, []);
 
   const handleSubmit = (event) => {
@@ -18,6 +40,11 @@ const ScheduleForm = () => {
     //lembre-se que essa rota precisa de um Bearer Token para funcionar.
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
   };
+
+
+  if(!listaP){
+    return null;
+  }
 
   return (
     <>
@@ -35,20 +62,24 @@ const ScheduleForm = () => {
               </label>
               <select className="form-select" name="dentist" id="dentist">
                 {/*Aqui deve ser feito um map para listar todos os dentistas*/}
-                <option key={'Matricula do dentista'} value={'Matricula do dentista'}>
-                  {`Nome Sobrenome`}
+
+                {listaDentistas.map((dentista) => {
+                  return <option key={dentista.matricula} value={dentista.matricula}>
+                  {dentista.nome}
                 </option>
+                })}
+
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="patient" className="form-label">
                 Patient
               </label>
+
               <select className="form-select" name="patient" id="patient">
                 {/*Aqui deve ser feito um map para listar todos os pacientes*/}
-                <option key={'Matricula do paciente'} value={'Matricula do paciente'}>
-                  {`Nome Sobrenome`}
-                </option>
+                
+
               </select>
             </div>
           </div>

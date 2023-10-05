@@ -1,23 +1,29 @@
-// import { ThemeContext } from '../../context/changeTheTheme'
-// import { useContext } from "react";
-import { useTheme } from '../../hooks/changeTheme.hook'
+import { useContext } from "react";
+import { Link } from 'react-router-dom';
+import { useTheme } from "../../hooks/changeTheme.hook";
+import { DentistContext } from "../../context/userContext";
+
+
+
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {
-  // const { trocaTema } = useContext(ThemeContext);
-  const { theme, changeTheme } = useTheme()
+  const { theme, changeTheme } = useTheme();
+  const { token, signOut, signin } = useContext(DentistContext);
 
-  // console.log("trocaTema", trocaTema);
-  // console.log(trocaTema);
   function handleClick() {
-    if (theme === 'light')
-      changeTheme('dark')
-    else
-      changeTheme('light')
+    if (theme === "light") changeTheme("dark");
+    else changeTheme("light");
+  }
+
+  function handleAlternaLogin(){
+    if(token){
+      signOut()
+    }
   }
 
   return (
-    <header className="sticky-top">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    <header className="sticky-top">
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar navbar-dark bg-dark ou navbar-light bg-light*/}
       <nav
@@ -59,9 +65,9 @@ export const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                <a className="nav-link" href="/login">
-                  Login
-                </a>
+                <Link className="nav-link" to="/login" replace onClick={handleAlternaLogin}>
+                  {!token ? 'Login' : 'Logout'}
+                </Link>
               </li>
               <li className={`nav-item`}>
                 {/* Ao ser clicado, esse botão mudará a aplicação para dark mode ou light mode.
@@ -70,7 +76,6 @@ export const Navbar = () => {
                  está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
                   className={`btn btn-${theme} ${styles.btnStyle}`}
-                  onClick={handleClick}
                 >
                   ☀
                 </button>

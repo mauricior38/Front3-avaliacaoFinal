@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -11,7 +11,6 @@ import { useTheme } from '../../hooks/changeTheme.hook'
 const DetailCard = () => {
   const [dentista, setDentista] = useState(null)
 
-
   const { matricula } = useParams();
   const { theme } = useTheme()
 
@@ -20,7 +19,6 @@ const DetailCard = () => {
     try{
       const dentistaRef = await api.get(`/dentista?matricula=${matricula}`);
       setDentista(dentistaRef.data);
-      console.log(dentistaRef.data)
       return;
 
     }catch(error){
@@ -30,9 +28,6 @@ const DetailCard = () => {
   }
 
   useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api passando o
-    //id do dentista que está vindo do react-router e carregar os dados em algum estado
-  
     loadDentist(matricula);
 
   }, []);

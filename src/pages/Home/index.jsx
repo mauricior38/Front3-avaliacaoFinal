@@ -1,13 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useTheme } from '../../hooks/changeTheme.hook';
-
-import { DentistContext } from "../../context/userContext";
 
 import Card from "../../Components/Card/index";
 
 export const Home = () => {
-  const { setListaDentistas, listaDentistas, checkLogged, isLogged } = useContext(DentistContext);
+  const [ listaDentistas, setListaDentistas  ] = useState([])
 
   const { theme } = useTheme();
 
