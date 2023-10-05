@@ -19,11 +19,8 @@ const DetailCard = () => {
     try{
       const dentistaRef = await api.get(`/dentista?matricula=${matricula}`);
       setDentista(dentistaRef.data);
-      return;
-
     }catch(error){
       console.log(error);
-      return;
     }
   }
 

@@ -1,48 +1,71 @@
-import { useEffect, useState } from "react";
-import api from '../../services/api';
+import { useEffect, useState, useContext } from "react";
+import api from "../../services/api";
 import styles from "./ScheduleForm.module.css";
-import { useTheme } from '../../hooks/changeTheme.hook'
-
+import { useTheme } from "../../hooks/changeTheme.hook";
+import { DentistContext } from "../../context/userContext";
 
 const ScheduleForm = () => {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
-  const [ listaDentistas, setListaDentistas] = useState([]);
+  const [dentistaEscolha, setDentistaEscolha] = useState("");
+  const [pacienteEscolha, setPacienteEscolha] = useState("");
+  const [date, setDate] = useState("");
+
+  const [listaDentistas, setListaDentistas] = useState([]);
   const [listaP, setListaP] = useState(null);
 
+  const { token } = useContext(DentistContext);
 
   async function loadData() {
-    try{
-    const responseDentista = await api.get("/dentista");
-    const dataDentista = await responseDentista.data;
+    try {
+      const responseDentista = await api.get("/dentista");
+      const dataDentista = responseDentista.data;
 
-    const responsePaciente = await api.get("/paciente");
-    const dataPaciente = await responsePaciente.data.body;
-    
-    setListaDentistas(dataDentista);
-    setListaP(dataPaciente);
+      const responsePaciente = await api.get("/paciente");
+      const dataPaciente = responsePaciente.data.body;
 
-    }catch(error){
+      setListaDentistas(dataDentista);
+      setListaP(dataPaciente);
+    } catch (error) {
       console.log(error);
     }
   }
 
-
   useEffect(() => {
     loadData();
-    console.log(listaP)
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     //Nesse handlesubmit você deverá usar o preventDefault,
-    //obter os dados do formulário e enviá-los no corpo da requisição 
+    //obter os dados do formulário e enviá-los no corpo da requisição
     //para a rota da api que marca a consulta
     //lembre-se que essa rota precisa de um Bearer Token para funcionar.
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+
+    const userData = {
+      dentista: dentistaEscolha,
+      paciente: pacienteEscolha,
+      dataHoraAgendamento: date,
+    };
+
+    // await api.post("/consulta", JSON.stringify(userData), {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // }).then(() => {
+    //   console.log('Tudo certo')
+    // }).catch((error) => {
+    //   console.log(error);
+    // })
+
+    console.log(userData);
   };
 
-
-  if(!listaP){
+  if (!listaP) {
     return null;
   }
 
@@ -50,25 +73,26 @@ const ScheduleForm = () => {
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div
-        className={`text-center container}`
-        }
-      >
+      <div className={`text-center container}`}>
         <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="dentist" className="form-label">
                 Dentist
               </label>
-              <select className="form-select" name="dentist" id="dentist">
-                {/*Aqui deve ser feito um map para listar todos os dentistas*/}
-
+              <select
+                className="form-select"
+                name="dentist"
+                id="dentist"
+                onChange={(e) => setDentistaEscolha(e.target.value)}
+              >
                 {listaDentistas.map((dentista) => {
-                  return <option key={dentista.matricula} value={dentista.matricula}>
-                  {dentista.nome}
-                </option>
+                  return (
+                    <option key={dentista.matricula} value={dentista.matricula}>
+                      {dentista.nome}
+                    </option>
+                  );
                 })}
-
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
@@ -76,10 +100,19 @@ const ScheduleForm = () => {
                 Patient
               </label>
 
-              <select className="form-select" name="patient" id="patient">
-                {/*Aqui deve ser feito um map para listar todos os pacientes*/}
-                
-
+              <select
+                className="form-select"
+                name="patient"
+                id="patient"
+                onChange={(e) => setPacienteEscolha(e.target.value)}
+              >
+                {listaP.map((paciente) => {
+                  return (
+                    <option key={paciente.matricula} value={paciente.matricula}>
+                      {paciente.nome}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
@@ -88,11 +121,13 @@ const ScheduleForm = () => {
               <label htmlFor="appointmentDate" className="form-label">
                 Date
               </label>
+
               <input
                 className="form-control"
                 id="appointmentDate"
                 name="appointmentDate"
                 type="datetime-local"
+                onChange={(e) => setDate(e.target.value)}
               />
             </div>
           </div>
@@ -100,8 +135,7 @@ const ScheduleForm = () => {
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
             <button
-              className={`btn btn-${theme} ${styles.button
-                }`}
+              className={`btn btn-${theme} ${styles.button}`}
               type="submit"
             >
               Schedule
