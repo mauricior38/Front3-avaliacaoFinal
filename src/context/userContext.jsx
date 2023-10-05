@@ -14,14 +14,6 @@ export function DentistContextProvider({ children }) {
     
   const navigate = useNavigate();
 
-  function procuraDentista(matricula) {
-    const perfilDentista = listaDentistas.find(
-      (e) => e.matricula === matricula
-    );
-    setDentista(perfilDentista);
-    return;
-  }
-
   async function signIn(username, password) {
     try {
 
@@ -63,7 +55,6 @@ export function DentistContextProvider({ children }) {
       value={{
         listaDentistas,
         setListaDentistas,
-        procuraDentista,
         dentista,
         signIn,
         isLogged,

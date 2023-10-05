@@ -72,7 +72,7 @@ export const Navbar = () => {
                   className={`btn btn-${theme} ${styles.btnStyle}`}
                   onClick={handleClick}
                 >
-                  ☀ 🌙{" "}
+                  ☀
                 </button>
               </li>
             </ul>
