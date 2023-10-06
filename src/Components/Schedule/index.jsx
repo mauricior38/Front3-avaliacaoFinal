@@ -38,31 +38,26 @@ const ScheduleForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    //Nesse handlesubmit você deverá usar o preventDefault,
-    //obter os dados do formulário e enviá-los no corpo da requisição
-    //para a rota da api que marca a consulta
-    //lembre-se que essa rota precisa de um Bearer Token para funcionar.
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
-
     const userData = {
       dentista: dentistaEscolha,
       paciente: pacienteEscolha,
       dataHoraAgendamento: date,
     };
 
-    // await api.post("/consulta", JSON.stringify(userData), {
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // }).then(() => {
-    //   console.log('Tudo certo')
-    // }).catch((error) => {
-    //   console.log(error);
-    // })
+    await api.post("/consulta", userData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(() => {
+      console.log('Tudo certo')
+    }).catch((error) => {
+      console.log("deu erro ", error);
+    })
 
     console.log(userData);
+    console.log(token);
   };
 
   if (!listaP) {
