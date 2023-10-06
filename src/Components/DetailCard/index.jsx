@@ -36,7 +36,7 @@ const DetailCard = () => {
   return (
     //As instruções que esto com {''} precisam ser
     //substituídas com as informações que vem da api
-    <>
+    <div className={`${theme === 'dark' ? styles.cardDark : ''}`}>
       <h1>Detalhes sobre {dentista.nome} </h1>
 
       <section className="card col-sm-12 col-lg-6 container">
@@ -75,7 +75,7 @@ const DetailCard = () => {
         </div>
       </section>
       <ScheduleFormModal />
-    </>
+    </div>
   );
 };
 
