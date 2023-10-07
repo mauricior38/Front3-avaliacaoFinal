@@ -62,9 +62,10 @@ const ScheduleForm = () => {
 
       alert('Consulta agendada com sucesso.')
       
-      // navigate('/home')
+      navigate('/home')
+      window.location.reload()
+
     } catch (error) {
-      console.log("error", error);
       if(error.response){
         alert(error.response.data)
       }else if(error.reponse.status === 403){
