@@ -3,6 +3,7 @@ import api from "../../services/api";
 import styles from "./ScheduleForm.module.css";
 import { useTheme } from "../../hooks/changeTheme.hook";
 import { DentistContext } from "../../context/userContext";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 const ScheduleForm = () => {
   const { theme } = useTheme();
@@ -35,29 +36,46 @@ const ScheduleForm = () => {
     loadData();
   }, []);
 
-  const handleSubmit = async (event) => {
+  const HandleSubmit = async (event) => {
     event.preventDefault();
 
-    const userData = {
-      dentista: dentistaEscolha,
-      paciente: pacienteEscolha,
+    let userData = {
+      dentista: {
+        matricula: dentistaEscolha
+      },
+      paciente: {
+        matricula: pacienteEscolha,
+      },
       dataHoraAgendamento: date,
     };
+    try {
+      
+      await api.post("/consulta", userData, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
 
-    await api.post("/consulta", userData, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+      alert('Consulta agendada com sucesso.')
+      userData = {
+        dentista: {
+          matricula: ''
+        },
+        paciente: {
+          matricula: '',
+        },
+        dataHoraAgendamento: '',
+      };
+
+    } catch (error) {
+      if(error.response.data){
+        alert(error.response.data)
+      }else{
+        alert('Erro: Tente novamente mais tarde')
       }
-    }).then(() => {
-      console.log('Tudo certo')
-    }).catch((error) => {
-      console.log("deu erro ", error);
-    })
-
-    console.log(userData);
-    console.log(token);
+    }
   };
 
   if (!listaP) {
@@ -69,7 +87,7 @@ const ScheduleForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div className={`text-center container}`}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={HandleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="dentist" className="form-label">

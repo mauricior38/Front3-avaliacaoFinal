@@ -13,7 +13,6 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("e",e);
     //Nesse handlesubmit você deverá usar o preventDefault,
     //enviar os dados do formulário e enviá-los no corpo da requisição
     //para a rota da api que faz o login /auth

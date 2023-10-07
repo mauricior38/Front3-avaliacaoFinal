@@ -14,7 +14,7 @@ const Contact = () => {
   });
 
   return (
-    <div >
+    <div className="dark">
       <h1>Logout</h1>
       <LoginForm />
     </div>

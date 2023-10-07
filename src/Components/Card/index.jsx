@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const Card = ({ nome, sobrenome, matricula }) => {
   const { theme } = useTheme();
   
-  console.log("theme", theme);
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
