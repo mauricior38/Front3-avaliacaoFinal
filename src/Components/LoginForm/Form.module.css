@@ -1,9 +1,10 @@
-.card{
-  width: 23rem;
-  gap: 1rem;
-  padding: 1rem;
-  margin-top: 2rem;
-  height: calc(100vh -86px);
+.form{
+  height: 80vh;
+  /* width: 23rem; */
+  /* gap: 1rem; */
+  /* padding: 1rem; */
+  /* margin-top: 2rem; */
+  /* height: calc(100vh -86px); */
 }
 
 .cardDark{
@@ -12,4 +13,8 @@
 
 .inputSpacing+.inputSpacing{
   margin: 1rem 0;
+}
+
+.buttonForm {
+  background-color: aqua;
 }

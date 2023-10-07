@@ -22,7 +22,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className={`${theme === 'dark' ? 'dark' : 'light'}`} >
+    <div className={`${theme === 'dark' ? 'dark' : 'light'} pb-4`} >
       <h1>Dentistas disponíveis</h1>
       <div className="card-grid container">
         {listaDentistas.map(({nome, sobrenome, matricula}) => (

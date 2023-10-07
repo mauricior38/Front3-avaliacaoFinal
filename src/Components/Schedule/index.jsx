@@ -3,10 +3,12 @@ import api from "../../services/api";
 import styles from "./ScheduleForm.module.css";
 import { useTheme } from "../../hooks/changeTheme.hook";
 import { DentistContext } from "../../context/userContext";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ScheduleForm = () => {
   const { theme } = useTheme();
+
+  const navigate = useNavigate()
 
   const [dentistaEscolha, setDentistaEscolha] = useState("");
   const [pacienteEscolha, setPacienteEscolha] = useState("");
@@ -36,10 +38,10 @@ const ScheduleForm = () => {
     loadData();
   }, []);
 
-  const HandleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let userData = {
+    const userData = {
       dentista: {
         matricula: dentistaEscolha
       },
@@ -59,19 +61,14 @@ const ScheduleForm = () => {
       })
 
       alert('Consulta agendada com sucesso.')
-      userData = {
-        dentista: {
-          matricula: ''
-        },
-        paciente: {
-          matricula: '',
-        },
-        dataHoraAgendamento: '',
-      };
-
+      
+      // navigate('/home')
     } catch (error) {
-      if(error.response.data){
+      console.log("error", error);
+      if(error.response){
         alert(error.response.data)
+      }else if(error.reponse.status === 403){
+        alert('Faça o login para agendar uma consulta')
       }else{
         alert('Erro: Tente novamente mais tarde')
       }
@@ -87,7 +84,7 @@ const ScheduleForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div className={`text-center container}`}>
-        <form onSubmit={HandleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="dentist" className="form-label">
