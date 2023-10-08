@@ -24,7 +24,7 @@ const ScheduleFormModal = () => {
             <div className={`modal-content`}>
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">
-                  Selecione o dentista, paciente e a data e hora
+                Selecione o dentista, o paciente, a data e hora da consulta
                 </h1>
                 {/* //Na linha seguinte deverá ser feito um teste se a aplicação
               // está em dark mode e deverá utilizado o css correto */}
@@ -55,8 +55,7 @@ const ScheduleFormModal = () => {
             <div className={`modal-content`}>
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">
-                  Você precisa estar logado na plataforma para conseguir
-                  cadastrar uma consulta
+                  Você precisa estar logado na plataforma para cadastrar uma consulta
                 </h1>
                 {/* //Na linha seguinte deverá ser feito um teste se a aplicação
             // está em dark mode e deverá utilizado o css correto */}

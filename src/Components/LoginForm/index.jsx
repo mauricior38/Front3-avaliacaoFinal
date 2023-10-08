@@ -37,6 +37,7 @@ const LoginForm = () => {
               value={username}
               onChange={e => setUsername(e.target.value)}
               name="login"
+              minlength="8"
 
               required
             />
@@ -46,11 +47,12 @@ const LoginForm = () => {
               name="password"
               type="password"
               value={password}
+              minlength="6"
               onChange={e => setPassword(e.target.value)}
               required
             />
             <button className={`btn ${styles.buttonForm}`} type="submit">
-              Send
+              Entrar
             </button>
           </form>
         </div>

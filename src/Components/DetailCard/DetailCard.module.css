@@ -11,9 +11,11 @@
   background-color: #10ceae;
   transition: 0.4s ease-in-out;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .button:hover {
-  background-color: #24a5909a;
+  background-color: #17be11e5;
   transform: scale(1.10);
+  font-weight: bold;
 }

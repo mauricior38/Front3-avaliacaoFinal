@@ -7,6 +7,10 @@
   /* height: calc(100vh -86px); */
 }
 
+.form input:valid {
+  background-color: rgb(138, 236, 113);
+}
+
 .cardDark{
   background-color: #31313196;
 }
@@ -23,7 +27,7 @@
 }
 
 .buttonForm:hover {
-  background-color: #24b19998;
+  background-color: #17be11e5;
   transform: scale(1.10);
   font-weight: bold;
 }

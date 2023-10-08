@@ -149,7 +149,7 @@ const ScheduleForm = () => {
               className={`btn btn-${theme} ${styles.button}`}
               type="submit"
             >
-              Schedule
+              Enviar
             </button>
           </div>
         </form>
