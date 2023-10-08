@@ -28,7 +28,7 @@ const LoginForm = () => {
     <div className={ `${theme === 'dark' ? styles.cardDark : 'light'} `}>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div className={`text-center card container `}>
+      <div className={`text ${styles.textcenter}`}>
         <div className={`card-body ${styles.CardBody} d-flex justify-content-center align-items-center ${styles.form} ${theme === 'dark' ? 'dark' : 'light'}`}>
           <form onSubmit={handleSubmit}>
             <input

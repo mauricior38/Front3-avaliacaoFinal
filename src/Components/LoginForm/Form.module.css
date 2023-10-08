@@ -1,6 +1,6 @@
 .form{
   height: 80vh;
-  /* width: 23rem; */
+   /*width: 23rem;*/
   /* gap: 1rem; */
   /* padding: 1rem; */
   /* margin-top: 2rem; */
@@ -16,5 +16,14 @@
 }
 
 .buttonForm {
-  background-color: aqua;
+  background-color: #10ceae;
+  transition: 0.4s ease-in-out;
+  font-weight: bold;
+  color: white;
+}
+
+.buttonForm:hover {
+  background-color: #24b19998;
+  transform: scale(1.10);
+  font-weight: bold;
 }

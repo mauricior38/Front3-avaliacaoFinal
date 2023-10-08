@@ -4,12 +4,19 @@
 
 .top {
   text-transform: uppercase;
+  font-weight: bold;
   padding: 1rem;
-  background: #f21d1d;
+  background: #10ceae;
   border: none;
   color: white;
   /* margin-top: 2rem; */
   width: 100%;
+  transition: 0.4s ease-in-out;
+}
+
+.top:hover {
+  color: #222222;
+  transform: scale(1.10);
 }
 
 .footer {

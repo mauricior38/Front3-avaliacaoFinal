@@ -1,10 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from 'react-router-dom';
-
 import api from '../../services/api';
-
 import ScheduleFormModal from "../ScheduleForm";
-
 import styles from "./DetailCard.module.css";
 import { useTheme } from '../../hooks/changeTheme.hook'
 
