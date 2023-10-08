@@ -5,15 +5,18 @@ import { useTheme } from '../../hooks/changeTheme.hook';
 import Card from "../../Components/Card/index";
 
 export const Home = () => {
+  const { theme } = useTheme() || {};
   const [ listaDentistas, setListaDentistas  ] = useState([])
 
-  const { theme } = useTheme();
 
   async function loadDentistas() {
     const response = await api.get("/dentista");
-    const data = await response.data;
-    setListaDentistas(data);
-    localStorage.setItem("@dentistas", JSON.stringify(data));
+    if(response && response.data) {
+      const data = await response.data;
+      setListaDentistas(data);
+      localStorage.setItem("@dentistas", JSON.stringify(data));
+
+    }
   }
 
   useEffect(() => {

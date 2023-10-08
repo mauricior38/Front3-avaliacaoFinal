@@ -1,13 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { DentistContext } from "../../context/userContext";
-import { useTheme } from '../../hooks/changeTheme.hook';
 
 import LoginForm from "../../Components/LoginForm/index";
 
 const Contact = () => {
   const { loged } = useContext(DentistContext);
-
-  const { theme } = useTheme();
 
   useEffect(() => {
     console.log(loged);
